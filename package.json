@@ -1,0 +1,16 @@
+{
+  "name": "pactum-graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./teste/**/*.test.js"
+  },
+  "keywords": [],
+  "author": "João Pedro",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "mocha": "^11.7.1",
+    "pactum": "^3.8.0"
+  }
+}
