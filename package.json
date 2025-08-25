@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start-server": "npx serverest",
     "test": "mocha ./teste/**/*.test.js",
     "test:API": "mocha ./teste/api/*.test.js",
     "test:categoriasProvider": "mocha ./teste/contract/categoriasProvider.test.js",
     "test:categoriasConsumer": "mocha ./teste/contract/categoriasConsumer.test.js",
     "test:produtosProvider": "mocha ./teste/contract/produtosProvider.test.js",
     "test:produtosConsumer": "mocha ./teste/contract/produtosConsumer.test.js",
-    "cy:run-ci": "start-server-and-test start-server http://localhost:8080 test",
+    "cy:run-ci": "start-server-and-test start-server http://localhost:3000 test",
     "merge-reports": "mochawesome-merge cypress/reports/mochawesome/*.json > mochawesome.json",
     "generate-report": "marge mochawesome.json --reportDir cypress/reports/mochawesome-report",
     "test:report": "npm run test && npm run merge-reports && npm run generate-report"
