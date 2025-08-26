@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,6 +28,13 @@ jobs:
       - name: Garantir permissões do node_modules/.bin
         run: chmod +x ./node_modules/.bin/*
 
+      # Instalar Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
       # Start API via Docker Compose
       - name: Start API with Docker Compose
         run: npm run start-api
@@ -39,7 +47,7 @@ jobs:
       - name: Run Contract tests (categoriasProvider)
         run: npm run test:categoriasProvider
 
-      - name: Run Contract tests (outros)
+      - name: Run Contract tests (others)
         run: |
           npm run test:categoriasConsumer
           npm run test:produtosProvider
