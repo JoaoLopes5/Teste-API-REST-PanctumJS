@@ -25,17 +25,17 @@ jobs:
       - name: Garantir permissões do node_modules/.bin
         run: chmod +x ./node_modules/.bin/*
 
-      # Rodar API local para testes de contrato
+      # Rodar testes de contratos
       - name: Run Contract tests (categoriasProvider)
         run: npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:categoriasProvider"
 
-      - name: Run other Contract tests
+      - name: Run Contract tests (outros)
         run: |
           npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:categoriasConsumer"
           npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:produtosProvider"
           npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:produtosConsumer"
 
-      # Rodar testes de API (outros endpoints, se necessário)
+      # Rodar testes de API
       - name: Run API tests
         run: npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:API"
 
