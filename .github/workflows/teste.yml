@@ -27,12 +27,6 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Garantir permissões do node_modules/.bin
-        run: chmod +x ./node_modules/.bin/*
-
   test-api:
     runs-on: ubuntu-latest
     needs: setup
@@ -42,6 +36,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+      - name: Install dependencies
+        run: npm install
+      - name: Garantir permissões do node_modules/.bin
+        run: chmod +x ./node_modules/.bin/*
       - name: Run API tests
         run: npm run test:API
 
@@ -54,6 +52,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+      - name: Install dependencies
+        run: npm install
+      - name: Garantir permissões do node_modules/.bin
+        run: chmod +x ./node_modules/.bin/*
       - name: Run Contract tests
         run: |
           npm run test:categoriasProvider
@@ -70,20 +72,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+      - name: Install dependencies
+        run: npm install
       - name: Garantir permissões do node_modules/.bin
         run: chmod +x ./node_modules/.bin/*
-
       - name: Merge and generate Mochawesome report
         run: |
           npx mochawesome-merge mochawesome-report/*.json > mochawesome.json
           npx marge mochawesome.json --reportDir mochawesome-report
-
       - name: Upload test report as artifact
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-report
           path: mochawesome-report
-
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
