@@ -3,6 +3,8 @@ request.setBaseUrl('http://lojaebac.ebaconline.art.br')
 let id;
 let token;
 beforeEach(async () => {
+    this.timeout(10000);
+    
     token = await spec()
     .post('http://lojaebac.ebaconline.art.br/public/authUser')
     .withJson({
@@ -38,7 +40,6 @@ it('Deve deletar uma categoria com sucesso',async () => {
     .delete('/api/deleteCategory/:id')
     .withHeaders('authorization', token)
     .withPathParams('id',id)
-    .withJson({"message": "category deleted"})
     .expectStatus(502)
     
 });
