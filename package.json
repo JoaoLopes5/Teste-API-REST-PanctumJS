@@ -7,7 +7,7 @@
   "test": "npm run cy:run",
   "cy:run-ci": "start-server-and-test start http://localhost:3000 test",
   "stop-api": "docker compose down",
-  "test:API": "npx mocha ./teste/api/*.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=api.html,html=true,json=true",
+   "test:API": "mocha ./teste/api/*.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=api.html,html=true,json=false",
   "merge-reports": "npx mochawesome-merge mochawesome-report/*.json > mochawesome.json",
   "generate-report": "npx marge mochawesome.json --reportDir mochawesome-report",
   "test:report:API": "npm run test:API && npm run merge-reports && npm run generate-report",
