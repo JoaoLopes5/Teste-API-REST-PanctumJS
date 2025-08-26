@@ -37,8 +37,17 @@ jobs:
         run: npm run start-api
 
       # Wait until API is ready
-      - name: Wait for API
-        run: npx wait-on http://localhost:3000
+      - name: Wait for API to be ready
+        run: |
+          echo "Waiting for API to be ready..."
+          for i in {1..30}; do
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "API is ready!"
+              break
+            fi
+            echo "Waiting 2 seconds..."
+            sleep 2
+          done
 
       # Run Contract tests
       - name: Run Contract tests (categoriasProvider)
