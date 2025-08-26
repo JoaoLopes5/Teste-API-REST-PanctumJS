@@ -10,6 +10,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      FLOWS_USER: ${{ secrets.FLOWS_USER }}
+      FLOWS_PASSWORD: ${{ secrets.FLOWS_PASSWORD }}
+      FLOWS_URL: http://localhost:3000
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,7 +46,7 @@ jobs:
         run: |
           echo "Waiting for API to be ready..."
           for i in {1..30}; do
-            if curl -s http://localhost:3000 > /dev/null; then
+            if curl -s $FLOWS_URL > /dev/null; then
               echo "API is ready!"
               break
             fi
@@ -50,18 +55,24 @@ jobs:
           done
 
       # Run Contract tests
-      - name: Run Contract tests (categoriasProvider)
-        run: npm run test:categoriasProvider
-
-      - name: Run Contract tests (others)
+      - name: Run Contract tests
         run: |
+          npm run test:categoriasProvider
           npm run test:categoriasConsumer
           npm run test:produtosProvider
           npm run test:produtosConsumer
+        env:
+          FLOWS_USER: ${{ secrets.FLOWS_USER }}
+          FLOWS_PASSWORD: ${{ secrets.FLOWS_PASSWORD }}
+          FLOWS_URL: http://localhost:3000
 
       # Run API tests
       - name: Run API tests
         run: npm run test:API
+        env:
+          FLOWS_USER: ${{ secrets.FLOWS_USER }}
+          FLOWS_PASSWORD: ${{ secrets.FLOWS_PASSWORD }}
+          FLOWS_URL: http://localhost:3000
 
       # Merge and generate Mochawesome report
       - name: Merge and generate Mochawesome report
