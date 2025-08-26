@@ -1,4 +1,4 @@
-name: Run Tests and Publish Report
+name: Run API Tests and Publish Report
 
 on:
   push:
@@ -7,13 +7,8 @@ on:
     branches: ["master"]
 
 jobs:
-  test:
+  test-api:
     runs-on: ubuntu-latest
-
-    env:
-      FLOWS_USER: ${{ secrets.FLOWS_USER }}
-      FLOWS_PASSWORD: ${{ secrets.FLOWS_PASSWORD }}
-      FLOWS_URL: http://localhost:3000
 
     steps:
       - name: Checkout code
@@ -27,68 +22,35 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install wait-on
-        run: npm install --save-dev wait-on
-
-      - name: Garantir permissões do node_modules/.bin
-        run: chmod +x ./node_modules/.bin/*
-
-      # Instalar Docker Compose via GitHub Action
-      - name: Setup Docker Compose
-        uses: docker/setup-compose-action@v1
-
-      # Start API via Docker Compose
-      - name: Start API
+      # Se você precisa do servidor API, iniciar Docker ou servidor local
+      - name: Start API (if needed)
         run: npm run start-api
 
-      # Wait until API is ready
+      # Esperar API estar pronta
       - name: Wait for API to be ready
         run: |
-          echo "Waiting for API to be ready..."
+          echo "Waiting for API..."
           for i in {1..30}; do
-            if curl -s $FLOWS_URL > /dev/null; then
+            if curl -s http://localhost:3000 > /dev/null; then
               echo "API is ready!"
               break
             fi
-            echo "Waiting 2 seconds..."
             sleep 2
           done
 
-      # Run Contract tests
-      - name: Run Contract tests
-        run: |
-          npm run test:categoriasProvider
-          npm run test:categoriasConsumer
-          npm run test:produtosProvider
-          npm run test:produtosConsumer
-        env:
-          FLOWS_USER: ${{ secrets.FLOWS_USER }}
-          FLOWS_PASSWORD: ${{ secrets.FLOWS_PASSWORD }}
-          FLOWS_URL: http://localhost:3000
-
-      # Run API tests
+      # Rodar apenas os testes de API
       - name: Run API tests
-        run: npm run test:API
-        env:
-          FLOWS_USER: ${{ secrets.FLOWS_USER }}
-          FLOWS_PASSWORD: ${{ secrets.FLOWS_PASSWORD }}
-          FLOWS_URL: http://localhost:3000
-
-      # Merge and generate Mochawesome report
-      - name: Merge and generate Mochawesome report
-        run: |
-          npx mochawesome-merge mochawesome-report/*.json > mochawesome.json
-          npx marge mochawesome.json --reportDir mochawesome-report
+        run: npm run test:report:API
 
       # Upload report as artifact
-      - name: Upload test report
+      - name: Upload API test report
         uses: actions/upload-artifact@v4
         with:
-          name: mochawesome-report
+          name: mochawesome-api-report
           path: mochawesome-report
 
-      # Deploy report to GitHub Pages
-      - name: Deploy report to GitHub Pages
+      # Publicar no GitHub Pages
+      - name: Deploy API report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -96,6 +58,6 @@ jobs:
           publish_branch: gh-actions
           force_orphan: true
 
-      # Stop API
+      # Stop API (se tiver iniciado localmente)
       - name: Stop API
         run: npm run stop-api
