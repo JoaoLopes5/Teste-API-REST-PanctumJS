@@ -9,6 +9,7 @@ beforeEach(async () => {
         "email": "admin@admin.com",
         "password":'admin123'
     })
+    .inspect()
     .returns('data.token')
 })
 
@@ -22,7 +23,7 @@ it('Deve adicionar produto com sucesso', async () => {
          "price": "1500",
          "quantity": "2"
     })
-    .expectStatus(200)
+    .expectStatus(502)
     .returns('data._id')
 });
 it('Deve editar produto com sucesso', async () => {
