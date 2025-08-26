@@ -22,7 +22,7 @@ it('Deve adicionar produto com sucesso', async () => {
          "price": "1500",
          "quantity": "2"
     })
-    .expectStatus(502)
+    .expectStatus(200)
     .returns('data._id')
 });
 it('Deve editar produto com sucesso', async () => {
