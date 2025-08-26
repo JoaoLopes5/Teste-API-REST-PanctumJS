@@ -2,21 +2,32 @@
   "name": "pactum-graphql",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "mocha ./teste/**/*.test.js",
-    "test:API": "mocha ./teste/api/*.test.js",
-    "test:categoriasProvider": "mocha ./teste/contract/categoriasProvider.test.js",
+"scripts": {
+  "start-api": "npx serverest",
+  "test": "npm run cy:run",
+  "cy:run-ci": "start-server-and-test start http://localhost:3000 test",
+  "stop-api": "docker compose down",
+   "test:API": "mocha ./teste/api/*.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=api,html=true,json=true",
+  "merge-reports": "npx mochawesome-merge mochawesome-report/*.json > mochawesome.json",
+  "generate-report": "npx marge mochawesome.json --reportDir mochawesome-report",
+  "test:report:API": "npm run test:API && npm run merge-reports && npm run generate-report",
+   "test:categoriasProvider": "mocha ./teste/contract/categoriasProvider.test.js",
     "test:categoriasConsumer": "mocha ./teste/contract/categoriasConsumer.test.js",
     "test:produtosProvider": "mocha ./teste/contract/produtosProvider.test.js",
-    "test:produtosConsumer":"mocha ./teste/contract/produtosConsumer.test.js"
-  },
-  "keywords": [],
+    "test:produtosConsumer": "mocha ./teste/contract/produtosConsumer.test.js"
+},
   "author": "João Pedro",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "mocha": "^11.7.1",
     "pactum": "^3.8.0",
     "pactum-flow-plugin": "^0.1.4"
+  },
+  "devDependencies": {
+    "cross-env": "^10.0.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.4.1",
+    "mochawesome-report-generator": "^6.2.0",
+    "start-server-and-test": "^2.0.13"
   }
 }
