@@ -9,7 +9,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,37 +21,48 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install wait-on
+        run: npm install --save-dev wait-on
+
       - name: Garantir permissões do node_modules/.bin
         run: chmod +x ./node_modules/.bin/*
 
-      # Rodar testes de contratos
+      # Start API via Docker Compose
+      - name: Start API with Docker Compose
+        run: npm run start-api
+
+      # Wait until API is ready
+      - name: Wait for API to be ready
+        run: npx wait-on http://localhost:3000
+
+      # Run Contract tests
       - name: Run Contract tests (categoriasProvider)
-        run: npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:categoriasProvider"
+        run: npm run test:categoriasProvider
 
       - name: Run Contract tests (outros)
         run: |
-          npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:categoriasConsumer"
-          npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:produtosProvider"
-          npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:produtosConsumer"
+          npm run test:categoriasConsumer
+          npm run test:produtosProvider
+          npm run test:produtosConsumer
 
-      # Rodar testes de API
+      # Run API tests
       - name: Run API tests
-        run: npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:API"
+        run: npm run test:API
 
-      # Merge e gerar relatório final
+      # Merge and generate Mochawesome report
       - name: Merge and generate Mochawesome report
         run: |
           npx mochawesome-merge mochawesome-report/*.json > mochawesome.json
           npx marge mochawesome.json --reportDir mochawesome-report
 
-      # Upload do relatório
+      # Upload report as artifact
       - name: Upload test report as artifact
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-report
           path: mochawesome-report
 
-      # Deploy para GitHub Pages
+      # Deploy report to GitHub Pages
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -60,3 +70,7 @@ jobs:
           publish_dir: mochawesome-report
           publish_branch: gh-actions
           force_orphan: true
+
+      # Stop API
+      - name: Stop API
+        run: npm run stop-api
