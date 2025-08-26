@@ -70,7 +70,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Merge and generate report
+      - name: Garantir permissões do node_modules/.bin
+        run: chmod +x ./node_modules/.bin/*
+
+      - name: Merge and generate Mochawesome report
         run: |
           npx mochawesome-merge mochawesome-report/*.json > mochawesome.json
           npx marge mochawesome.json --reportDir mochawesome-report
