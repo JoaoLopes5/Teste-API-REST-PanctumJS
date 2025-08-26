@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
 "scripts": {
-  "start-api": "docker-compose up -d",
-  "stop-api": "docker-compose down",
+  "start-api": "docker compose up -d",
+  "stop-api": "docker compose down",
   "test": "npx mocha ./teste/**/*.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=index.html,html=true,json=false",
   "test:API": "npx mocha ./teste/api/*.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=api.html,html=true,json=false",
   "test:categoriasProvider": "npx mocha ./teste/contract/categoriasProvider.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=categoriasProvider.html,html=true,json=false",

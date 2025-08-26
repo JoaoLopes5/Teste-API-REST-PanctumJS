@@ -28,7 +28,7 @@ jobs:
       - name: Garantir permissões do node_modules/.bin
         run: chmod +x ./node_modules/.bin/*
 
-      # Instalar Docker Compose via Action
+      # Instalar Docker Compose via GitHub Action
       - name: Setup Docker Compose
         uses: docker/setup-compose-action@v1
 
