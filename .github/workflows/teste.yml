@@ -29,20 +29,7 @@ jobs:
       - name: Garantir permissões do node_modules/.bin
         run: chmod +x ./node_modules/.bin/*
 
-      # 5️⃣ Esperar API pública ou container estar pronto (opcional)
-      # Se sua API já estiver disponível publicamente em http://localhost:3000 ou outro endpoint,
-      # você pode remover este passo ou ajustar a URL.
-      - name: Wait for API to be ready
-        run: |
-          echo "Waiting for API..."
-          for i in {1..30}; do
-            if curl -s http://localhost:3000 > /dev/null; then
-              echo "API is ready!"
-              break
-            fi
-            sleep 2
-          done
-
+     
       # 6️⃣ Rodar apenas os testes de API e gerar Mochawesome report
       - name: Run API tests
         run: npx serverest
