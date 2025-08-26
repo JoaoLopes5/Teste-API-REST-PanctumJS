@@ -11,22 +11,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout do código
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
+      # 3️⃣ Instalar todas as dependências (incluindo devDependencies)
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      # Se você precisa do servidor API, iniciar Docker ou servidor local
-      - name: Start API (if needed)
-        run: npm run start-api
+      # 4️⃣ Garantir permissões para executar os binários locais
+      - name: Garantir permissões do node_modules/.bin
+        run: chmod +x ./node_modules/.bin/*
 
-      # Esperar API estar pronta
+      # 5️⃣ Esperar API pública ou container estar pronto (opcional)
+      # Se sua API já estiver disponível publicamente em http://localhost:3000 ou outro endpoint,
+      # você pode remover este passo ou ajustar a URL.
       - name: Wait for API to be ready
         run: |
           echo "Waiting for API..."
@@ -38,18 +43,18 @@ jobs:
             sleep 2
           done
 
-      # Rodar apenas os testes de API
+      # 6️⃣ Rodar apenas os testes de API e gerar Mochawesome report
       - name: Run API tests
         run: npm run test:report:API
 
-      # Upload report as artifact
+      # 7️⃣ Upload do relatório como artifact
       - name: Upload API test report
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-api-report
           path: mochawesome-report
 
-      # Publicar no GitHub Pages
+      # 8️⃣ Publicar relatório no GitHub Pages
       - name: Deploy API report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -57,7 +62,3 @@ jobs:
           publish_dir: mochawesome-report
           publish_branch: gh-actions
           force_orphan: true
-
-      # Stop API (se tiver iniciado localmente)
-      - name: Stop API
-        run: npm run stop-api
