@@ -27,17 +27,17 @@ jobs:
 
       # Rodar API local para testes de contrato
       - name: Run Contract tests (categoriasProvider)
-        run: npx start-server-and-test "npm run start-api" http://localhost:8081 "npm run test:categoriasProvider"
+        run: npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:categoriasProvider"
 
       - name: Run other Contract tests
         run: |
-          npx start-server-and-test "npm run start-api" http://localhost:8081 "npm run test:categoriasConsumer"
-          npx start-server-and-test "npm run start-api" http://localhost:8081 "npm run test:produtosProvider"
-          npx start-server-and-test "npm run start-api" http://localhost:8081 "npm run test:produtosConsumer"
+          npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:categoriasConsumer"
+          npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:produtosProvider"
+          npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:produtosConsumer"
 
       # Rodar testes de API (outros endpoints, se necessário)
       - name: Run API tests
-        run: npx start-server-and-test "npm run start-api" http://localhost:8081 "npm run test:API"
+        run: npx start-server-and-test "npm run start-api" http://localhost:3000 "npm run test:API"
 
       # Merge e gerar relatório final
       - name: Merge and generate Mochawesome report
