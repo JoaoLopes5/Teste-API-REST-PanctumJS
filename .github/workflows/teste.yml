@@ -3,38 +3,35 @@ name: Run API Tests and Publish Report
 on:
   push:
     branches: ["master"]
-  pull_request:
-    branches: ["master"]
 
 jobs:
   test-api:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Pegar o código
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Configurar Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
+      # 3️⃣ Instalar dependências
       - name: Install dependencies
         run: npm ci
-     
+
+      # 4️⃣ Rodar os testes e gerar relatório
       - name: Run API tests
-        run: npm run test:API   # só chama o test:API que gera HTML + JSON
+        run: npm run test:API
 
-      - name: Upload API test report
-        uses: actions/upload-artifact@v4
-        with:
-          name: mochawesome-api-report
-          path: mochawesome-report
-
+      # 5️⃣ Publicar relatório no GitHub Pages
       - name: Deploy API report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # ou PERSONAL_GITHUB_TOKEN se repositório privado
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # se repositório privado, use PAT
           publish_dir: ./mochawesome-report
-          publish_branch: gh-actions
+          publish_branch: gh-pages       # branch que vai hospedar o site
           force_orphan: true
