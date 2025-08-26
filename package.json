@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start-api": "cross-env PORT=3000 node src/server.js",
+    "start-api": "cross-env PORT=3000 node docker-compose.yml",
     "test": "npx mocha ./teste/**/*.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=index.html,html=true,json=false",
     "test:API": "npx mocha ./teste/api/*.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=api.html,html=true,json=false",
     "test:categoriasProvider": "npx mocha ./teste/contract/categoriasProvider.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=categoriasProvider.html,html=true,json=false",
