@@ -28,19 +28,16 @@ jobs:
       - name: Garantir permissões do node_modules/.bin
         run: chmod +x ./node_modules/.bin/*
 
-      # Instalar Docker Compose
-      - name: Install Docker Compose
-        run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose --version
+      # Instalar Docker Compose via Action
+      - name: Setup Docker Compose
+        uses: docker/setup-compose-action@v1
 
       # Start API via Docker Compose
-      - name: Start API with Docker Compose
+      - name: Start API
         run: npm run start-api
 
       # Wait until API is ready
-      - name: Wait for API to be ready
+      - name: Wait for API
         run: npx wait-on http://localhost:3000
 
       # Run Contract tests
@@ -64,7 +61,7 @@ jobs:
           npx marge mochawesome.json --reportDir mochawesome-report
 
       # Upload report as artifact
-      - name: Upload test report as artifact
+      - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-report
