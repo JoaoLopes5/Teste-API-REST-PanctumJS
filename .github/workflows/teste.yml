@@ -24,11 +24,6 @@ jobs:
       # 3️⃣ Instalar todas as dependências (incluindo devDependencies)
       - name: Install dependencies
         run: npm ci
-
-      # 4️⃣ Garantir permissões para executar os binários locais
-      - name: Garantir permissões do node_modules/.bin
-        run: chmod +x ./node_modules/.bin/*
-
      
       # 6️⃣ Rodar apenas os testes de API e gerar Mochawesome report
       - name: Run API tests
