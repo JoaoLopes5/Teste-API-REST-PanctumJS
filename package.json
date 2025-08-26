@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
 "scripts": {
+  "start-api": "docker compose up -d",
+  "stop-api": "docker compose down",
   "test:API": "npx mocha ./teste/api/*.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=api.html,html=true,json=false",
   "merge-reports": "npx mochawesome-merge mochawesome-report/*.json > mochawesome.json",
   "generate-report": "npx marge mochawesome.json --reportDir mochawesome-report",
