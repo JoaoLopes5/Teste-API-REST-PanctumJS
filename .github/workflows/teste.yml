@@ -11,37 +11,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout do código
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # 3️⃣ Instalar todas as dependências (incluindo devDependencies)
       - name: Install dependencies
         run: npm ci
      
-      # 6️⃣ Rodar apenas os testes de API e gerar Mochawesome report
       - name: Run API tests
-        run: npm run test:report:API
-        continue-on-error: true
+        run: npm run test:API   # só chama o test:API que gera HTML + JSON
 
-      # 7️⃣ Upload do relatório como artifact
       - name: Upload API test report
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-api-report
           path: mochawesome-report
 
-      # 8️⃣ Publicar relatório no GitHub Pages
       - name: Deploy API report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: mochawesome-report
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # ou PERSONAL_GITHUB_TOKEN se repositório privado
+          publish_dir: ./mochawesome-report
           publish_branch: gh-actions
           force_orphan: true
