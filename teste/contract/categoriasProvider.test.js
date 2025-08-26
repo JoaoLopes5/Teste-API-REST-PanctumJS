@@ -4,7 +4,7 @@ const pf = require('pactum-flow-plugin');
 pactum.request.setBaseUrl('http://lojaebac.ebaconline.art.br');
 
 function addFlowReporter() {
-  pf.config.url = 'http://localhost:8081'; // pactum flow server url
+  pf.config.url = 'http://localhost:3000'; // pactum flow server url
   pf.config.projectId = 'lojaebac-Categorias';
   pf.config.projectName = 'Loja EBAC Categorias';
 pf.config.version = `1.0.0-${Date.now()}`;
