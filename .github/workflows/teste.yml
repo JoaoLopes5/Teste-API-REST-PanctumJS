@@ -24,7 +24,7 @@ jobs:
         run: npm run test:API
 
       - name: Rename HTML for GitHub Pages
-        run: mv mochawesome-report/api.html mochawesome-report/index.html
+        run: mv ./mochawesome-report/api.html ./mochawesome-report/index.html
 
       - name: Deploy API report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
