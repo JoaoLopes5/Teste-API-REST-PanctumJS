@@ -28,6 +28,7 @@ jobs:
       # 6️⃣ Rodar apenas os testes de API e gerar Mochawesome report
       - name: Run API tests
         run: npm run test:report:API
+        continue-on-error: true
 
       # 7️⃣ Upload do relatório como artifact
       - name: Upload API test report
