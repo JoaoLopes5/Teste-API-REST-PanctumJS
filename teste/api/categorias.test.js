@@ -3,8 +3,6 @@ request.setBaseUrl('http://lojaebac.ebaconline.art.br')
 let id;
 let token;
 beforeEach(async () => {
-    this.timeout(10000);
-    
     token = await spec()
     .post('http://lojaebac.ebaconline.art.br/public/authUser')
     .withJson({
