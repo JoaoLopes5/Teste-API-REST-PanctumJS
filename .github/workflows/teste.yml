@@ -23,8 +23,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Categorias Tests and Generate Report
+      - name: Run Categorias Tests
         run: npm run test:categorias-ci
+
+      - name: Merge Mochawesome JSONs
+        run: npx mochawesome-merge ./mochawesome-report/*.json > ./mochawesome-report/report.json
+
+      - name: Generate final HTML report
+        run: npx marge ./mochawesome-report/report.json --reportDir ./mochawesome-report --reportFilename index.html --inlineAssets
 
       - name: List mochawesome-report contents
         run: ls -R ./mochawesome-report

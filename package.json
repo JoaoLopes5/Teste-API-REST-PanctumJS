@@ -4,10 +4,10 @@
   "main": "index.js",
   "scripts": {
      "start": "npx serverest",
-  "test:categorias": "mocha ./teste/api/categorias.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=index.html,html=true,json=true",
+  "test:categorias": "mocha ./teste/api/categorias.test.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=index.json,html=false,json=true",
   "merge:categorias": "npx mochawesome-merge ./mochawesome-report/*.json > mochawesome-report/report.json",
-  "report:categorias": "npx marge mochawesome-report/report.json --reportDir mochawesome-report --reportFilename=index.html --inlineAssets",
-  "test:categorias-ci": "start-server-and-test start http://localhost:3000/ merge:categorias && report:categorias",
+  "report:categorias": "npx marge mochawesome-report/report.json --reportDir mochawesome-report --reportFilename index.html --inlineAssets",
+  "test:categorias-ci": "start-server-and-test start http://localhost:3000/ test:categorias",
     "test:categoriasProvider": "mocha ./teste/contract/categoriasProvider.test.js",
     "test:categoriasConsumer": "mocha ./teste/contract/categoriasConsumer.test.js",
     "test:produtosProvider": "mocha ./teste/contract/produtosProvider.test.js",
