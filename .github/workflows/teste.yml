@@ -23,8 +23,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Categorias Test
+      - name: Run Categorias Tests and Generate Report
         run: npm run test:categorias-ci
+
+      - name: List mochawesome-report contents
+        run: ls -R ./mochawesome-report
 
       - name: Deploy Mochawesome report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
