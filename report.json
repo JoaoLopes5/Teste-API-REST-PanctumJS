@@ -12,13 +12,13 @@
     "hasOther": false,
     "skipped": 0,
     "hasSkipped": false,
-    "start": "2025-08-27T16:48:53.030Z",
-    "end": "2025-08-27T16:48:56.213Z",
-    "duration": 3183
+    "start": "2025-08-27T16:58:01.665Z",
+    "end": "2025-08-27T16:58:05.399Z",
+    "duration": 3734
   },
   "results": [
     {
-      "uuid": "59ddf305-4b4f-4eb3-b8dd-dd87606c453e",
+      "uuid": "6f38226f-7b75-47c1-b5dd-e156053116e2",
       "title": "",
       "fullFile": "",
       "file": "/home/runner/work/Teste-API-REST-PanctumJS/Teste-API-REST-PanctumJS/teste/api/categorias.test.js",
@@ -27,7 +27,7 @@
           "title": "\"before each\" hook in \"{root}\"",
           "fullTitle": "\"before each\" hook in \"{root}\"",
           "timedOut": false,
-          "duration": 155,
+          "duration": 1217,
           "state": null,
           "speed": null,
           "pass": false,
@@ -36,8 +36,8 @@
           "context": null,
           "code": "token = await spec()\n.post('http://lojaebac.ebaconline.art.br/public/authUser')\n.withJson({\n    \"email\": \"admin@admin.com\",\n    \"password\":'admin123'\n})\n.returns('data.token')",
           "err": {},
-          "uuid": "6d49933d-d18f-4652-800a-07a1cc7acb43",
-          "parentUUID": "59ddf305-4b4f-4eb3-b8dd-dd87606c453e",
+          "uuid": "bbdf14c7-4804-444c-873c-fdc6cff71776",
+          "parentUUID": "6f38226f-7b75-47c1-b5dd-e156053116e2",
           "isHook": true,
           "skipped": false
         }
@@ -48,7 +48,7 @@
           "title": "Deve adicionar categoria com sucesso",
           "fullTitle": "Deve adicionar categoria com sucesso",
           "timedOut": false,
-          "duration": 176,
+          "duration": 222,
           "state": "passed",
           "speed": "slow",
           "pass": true,
@@ -57,8 +57,8 @@
           "context": null,
           "code": "id = await spec()\n  .post('/api/addCategory')\n  .withHeaders('authorization', token)\n  .withBody({\n       \"name\": \"categoria\"\n  })\n  .expectStatus(200)\n  .expectJson('success',true)\n  .returns('data._id')",
           "err": {},
-          "uuid": "5be69f53-3531-4ee3-aae6-3f07aa0363e3",
-          "parentUUID": "59ddf305-4b4f-4eb3-b8dd-dd87606c453e",
+          "uuid": "e04a92c4-d793-4519-91b7-3a99eb269864",
+          "parentUUID": "6f38226f-7b75-47c1-b5dd-e156053116e2",
           "isHook": false,
           "skipped": false
         },
@@ -66,7 +66,7 @@
           "title": "Deve editar categoria com sucesso",
           "fullTitle": "Deve editar categoria com sucesso",
           "timedOut": false,
-          "duration": 229,
+          "duration": 257,
           "state": "passed",
           "speed": "slow",
           "pass": true,
@@ -75,8 +75,8 @@
           "context": null,
           "code": "await spec()\n.put('/api/editCategory/:id')\n.withHeaders('authorization', token)\n.withPathParams('id',id)\n.withJson({\"name\": \"categoria editada\"})\n.expectStatus(502)",
           "err": {},
-          "uuid": "3c65b697-a2b7-4e59-8bf4-88b53217f328",
-          "parentUUID": "59ddf305-4b4f-4eb3-b8dd-dd87606c453e",
+          "uuid": "5a354e13-068d-4e8e-8046-1c4f716bf6a2",
+          "parentUUID": "6f38226f-7b75-47c1-b5dd-e156053116e2",
           "isHook": false,
           "skipped": false
         },
@@ -84,7 +84,7 @@
           "title": "Deve deletar uma categoria com sucesso",
           "fullTitle": "Deve deletar uma categoria com sucesso",
           "timedOut": false,
-          "duration": 1194,
+          "duration": 181,
           "state": "passed",
           "speed": "slow",
           "pass": true,
@@ -93,22 +93,22 @@
           "context": null,
           "code": "await spec()\n.delete('/api/deleteCategory/:id')\n.withHeaders('authorization', token)\n.withPathParams('id',id)\n.expectStatus(502)",
           "err": {},
-          "uuid": "131dfc27-0cb7-46c3-ad70-66438920b0bd",
-          "parentUUID": "59ddf305-4b4f-4eb3-b8dd-dd87606c453e",
+          "uuid": "78bc9220-34bd-468b-8588-bbc261bc4e48",
+          "parentUUID": "6f38226f-7b75-47c1-b5dd-e156053116e2",
           "isHook": false,
           "skipped": false
         }
       ],
       "suites": [],
       "passes": [
-        "5be69f53-3531-4ee3-aae6-3f07aa0363e3",
-        "3c65b697-a2b7-4e59-8bf4-88b53217f328",
-        "131dfc27-0cb7-46c3-ad70-66438920b0bd"
+        "e04a92c4-d793-4519-91b7-3a99eb269864",
+        "5a354e13-068d-4e8e-8046-1c4f716bf6a2",
+        "78bc9220-34bd-468b-8588-bbc261bc4e48"
       ],
       "failures": [],
       "pending": [],
       "skipped": [],
-      "duration": 1599,
+      "duration": 660,
       "root": true,
       "rootEmpty": false,
       "_timeout": 2000
