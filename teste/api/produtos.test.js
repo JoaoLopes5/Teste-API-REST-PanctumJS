@@ -38,11 +38,11 @@ it('Deve editar produto com sucesso', async () => {
     .expectStatus(502)
     
 });
-// it('Deve deletar um produto com sucesso',async () => {
-//     await spec()
-//     .delete('/api/deleteProduct/:id')
-//     .withHeaders('authorization', token)
-//     .withPathParams('id',id)
-//     .expectStatus(502)
+it('Deve deletar um produto com sucesso',async () => {
+    await spec()
+    .delete('/api/deleteProduct/:id')
+    .withHeaders('authorization', token)
+    .withPathParams('id',id)
+    .expectStatus(502)
     
-// });
+});
