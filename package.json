@@ -2,20 +2,21 @@
   "name": "pactum-graphql",
   "version": "1.0.0",
   "main": "index.js",
-"scripts": {
-  "test": "npm run cy:run",
+  "scripts": {
+    "test": "npm run cy:run",
     "start": "npx serverest",
     "cy:run": "npx cypress run",
     "cy:report": "npx mochawesome-merge ./mochawesome-report/mochawesome*.json  > mochawesome-report/report.json && npx marge mochawesome-report/report.json",
     "cy:run-ci": "start-server-and-test start http://localhost:3000/api-doc test",
-   "test:categoriasProvider": "mocha ./teste/contract/categoriasProvider.test.js",
+    "test:categoriasProvider": "mocha ./teste/contract/categoriasProvider.test.js",
     "test:categoriasConsumer": "mocha ./teste/contract/categoriasConsumer.test.js",
     "test:produtosProvider": "mocha ./teste/contract/produtosProvider.test.js",
     "test:produtosConsumer": "mocha ./teste/contract/produtosConsumer.test.js"
-},
+  },
   "author": "João Pedro",
   "license": "ISC",
   "dependencies": {
+    "cypress": "^15.0.0",
     "mocha": "^11.7.1",
     "pactum": "^3.8.0",
     "pactum-flow-plugin": "^0.1.4"
