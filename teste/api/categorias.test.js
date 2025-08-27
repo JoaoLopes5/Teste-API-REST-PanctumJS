@@ -33,11 +33,11 @@ it('Deve editar categoria com sucesso', async () => {
     .expectStatus(502)
     
 });
-//it('Deve deletar uma categoria com sucesso',async () => {
-  //  await spec()
-    //.delete('/api/deleteCategory/:id')
-    //.withHeaders('authorization', token)
-    //.withPathParams('id',id)
-   // .expectStatus(502)
+it('Deve deletar uma categoria com sucesso',async () => {
+    await spec()
+    .delete('/api/deleteCategory/:id')
+    .withHeaders('authorization', token)
+    .withPathParams('id',id)
+    .expectStatus(502)
     
-//});
+});
